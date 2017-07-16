@@ -2,6 +2,7 @@ import numpy as np
 import os
 from struct import *
 from sklearn import svm
+import time
 
 # f_train_data = open('../data/spatial/data_path_train01.txt')
 # f_test_data = open('../data/spatial/data_path_test01.txt')
@@ -24,7 +25,13 @@ from sklearn import svm
 # def calc_accuracy(pre, y):
 #     print sum(pre == y), len(y)
 #     return float(sum(pre == y))/len(y)
+from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.externals import joblib
+from sklearn.tree import DecisionTreeClassifier
+
+
+def get_local_time():
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 
 def read_fc_feature(data_path, label_path):
@@ -85,10 +92,12 @@ def read_avg_feature(data_path, label_path):
                 data = []
                 with open(fc_path, mode='rb') as fid:
                     file_content = fid.read()
+                    # print(len(file_content))
                     for i in range(0, 4096):
-                        start = i * 4
-                        d = unpack('f', file_content[start:start + 4])
+                        start = i * 8
+                        d = unpack('d', file_content[start:start + 8])
                         data.append(d[0])
+                # print(len(data))
                 train_data.append(data)
     return train_data, train_label
 
@@ -99,13 +108,35 @@ def train_model(train_x, train_y):
     joblib.dump(svc, 'svm_fc_avg.pkl')
     return svc
 
+
+def train_boost(train_x, train_y):
+    bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2, min_samples_split=20, min_samples_leaf=5),
+                             algorithm="SAMME",
+                             n_estimators=300, learning_rate=0.8)
+    res = bdt.fit(train_x, train_y)
+    return res
+
+
+def train_random_forest(train_x, train_y):
+    clf = RandomForestClassifier(n_estimators=3000, oob_score=True, n_jobs=-1, random_state=50, max_features=50, min_samples_split=20)
+    s = clf.fit(train_x, train_y)
+    print s
+    return s
+
 if __name__ == '__main__':
+    print("start at read {}".format(get_local_time()))
     train_x, train_y = read_avg_feature('../data/spatial/data_path_train01.txt', '../data/train_label01.txt')
     test_x, test_y = read_avg_feature('../data/spatial/data_path_test01.txt', '../data/test_label01.txt')
     print("=========data size==========")
     print("train data size {}".format(len(train_x)))
+    print("train label size {}".format(len(train_y)))
     print("test data size {}".format(len(test_x)))
+    print("test label size {}".format(len(test_y)))
+    print("start at train {}".format(get_local_time()))
     print("=========training===========")
-    model = train_model(train_x, train_y)
+    model = train_random_forest(train_x, train_y)
+    print("start at test {}".format(get_local_time()))
     print("=========testing============")
-    model.score(test_x, test_y)
+    print model.score(test_x, test_y)
+    print "feature importance : {}".format(model.feature_importances_)
+    print("end of all opt {}".format(get_local_time()))

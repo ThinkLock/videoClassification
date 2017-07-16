@@ -1,0 +1,9 @@
+c3d.fc6 for svm c=0.01
+=========data size==========
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+=========training===========
+=========testing============
+0.824477927571
