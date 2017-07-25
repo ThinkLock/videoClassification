@@ -105,3 +105,59 @@ start at test 2017-07-16 22:54:44
 feature importance : [ 0.000355    0.00012739  0.00012273 ...,  0.00027956  0.00027588
   0.00017714]
 end of all opt 2017-07-16 22:54:54
+
+fc6 finetune c=0.01
+=========data size==========
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-19 21:55:34
+=========training===========
+start at test 2017-07-19 21:57:36
+=========testing============
+0.867301083796
+end of all opt 2017-07-19 21:59:11
+
+
+32 without finetune c=0.01
+=========data size==========
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-19 22:35:33
+=========training===========
+start at test 2017-07-19 22:37:37
+=========testing============
+0.819719799101
+end of all opt 2017-07-19 22:39:18
+
+32 without finetune and 16 fintune c=0.01
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-23 20:51:06
+=========training===========
+start at test 2017-07-23 20:55:30
+=========testing============
+0.871001850383
+end of all opt 2017-07-23 20:58:41
+
+32 finetune on 16 model c = 0.01
+start at read 2017-07-25 11:03:22
+=========data size==========
+num of the features : 4096
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-25 11:03:46
+=========training===========
+start at test 2017-07-25 11:06:25
+=========testing============
+0.793285752049
+end of all opt 2017-07-25 11:08:16
