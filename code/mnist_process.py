@@ -32,8 +32,8 @@ import gzip, struct
 #
 # X_train,y_train = _read('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz')
 # X_test,y_test = _read('t10k-images-idx3-ubyte.gz', 't10k-labels-idx1-ubyte.gz')
-f_train_data = open('data/data_path_train01.txt')
-f_test_data = open('data/data_path_test01.txt')
+f_train_data = open('data/data32_path_train01.txt')
+f_test_data = open('data/data32_path_test01.txt')
 
 # feature_name = '/vf_3clips.fc6-all'
 feature_name = '/c3d_l2_norm.fc6'

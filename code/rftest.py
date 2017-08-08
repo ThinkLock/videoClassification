@@ -22,8 +22,8 @@ from sklearn.metrics import confusion_matrix
 
 logging.basicConfig(filename='feature_svm_log_c01_with32.txt',level=logging.INFO)
 
-f_train_data = open('data/data_path_train01.txt')
-f_test_data = open('data/data_path_test01.txt')
+f_train_data = open('data/data32_path_train01.txt')
+f_test_data = open('data/data32_path_test01.txt')
 f_train32_data = open('data/data32_path_train01.txt')
 f_class_data = open('data/classInd.txt')
 

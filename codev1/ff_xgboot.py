@@ -28,6 +28,7 @@ import time
 from sklearn.cluster import KMeans
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier, VotingClassifier
 from sklearn.externals import joblib
+from sklearn.grid_search import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
@@ -166,7 +167,7 @@ def read_16and32_avg_feature(data_path, label_path, data32_path, label32_path):
 def train_model(train_x, train_y):
     c = 0.01  # SVM regularization parameter
     svc = svm.SVC(kernel='linear', C=c).fit(train_x, train_y)
-    joblib.dump(svc, 'svm_fc_16_avg.pkl')
+    joblib.dump(svc, 'svm_fc_16_concat_32ft16.pkl')
     return svc
 
 
@@ -179,7 +180,8 @@ def train_boost(train_x, train_y):
 
 
 def train_random_forest(train_x, train_y):
-    clf = RandomForestClassifier(n_estimators=3000, oob_score=True, n_jobs=-1, random_state=50, max_features=50, min_samples_split=10)
+    clf = RandomForestClassifier(n_estimators=3000, criterion='entropy', oob_score=True, n_jobs=-1, random_state=1,
+                                 max_features=50, min_samples_split=10, min_samples_leaf=1)
     s = clf.fit(train_x, train_y)
     print s
     return s
@@ -228,23 +230,24 @@ def vote_for_model(model,data_path,label_path):
 
 
 if __name__ == '__main__':
-    print("start at read {}".format(get_local_time()))
-    train_x, train_y = read_fc_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt')
+    # print("start at read {}".format(get_local_time()))
+    # train_x, train_y = read_fc_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt')
     # test_x, test_y = read_fc_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt')
-    # train_x, train_y = read_16and32_avg_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt', '../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
-    # test_x, test_y = read_16and32_avg_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt', '../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
+    train_x, train_y = read_16and32_avg_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt', '../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
+    test_x, test_y = read_16and32_avg_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt', '../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
     print("=========data size==========")
     print("num of the features : {}".format(len(train_x[0])))
     print("train data size {}".format(len(train_x)))
     print("train label size {}".format(len(train_y)))
-    # print("test data size {}".format(len(test_x)))
-    # print("test label size {}".format(len(test_y)))
+    print("test data size {}".format(len(test_x)))
+    print("test label size {}".format(len(test_y)))
     print("start at train {}".format(get_local_time()))
     print("=========training===========")
-    model = train_model(train_x, train_y)
+    mod = train_random_forest(train_x, train_y)
     print("start at test {}".format(get_local_time()))
     print("=========testing============")
-    all_pre, test_label = vote_for_model(model,'../data/spatial/data16_path_test01.txt', '../data/test_label01.txt')
+    # all_pre, test_label = vote_for_model(model,'../data/spatial/data16_path_test01.txt', '../data/test_label01.txt')
+    print mod.score(test_x, test_y)
     print("end of all opt {}".format(get_local_time()))
     # #
     # model = joblib.load('svm_fc_16_avg.pkl')

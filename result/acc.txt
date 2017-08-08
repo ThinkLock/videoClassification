@@ -161,3 +161,151 @@ start at test 2017-07-25 11:06:25
 =========testing============
 0.793285752049
 end of all opt 2017-07-25 11:08:16
+
+32 finetune on 16 and 16 fintune c=0.01
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-29 15:34:07
+=========training===========
+start at test 2017-07-29 15:38:25
+=========testing============
+0.870473169442
+end of all opt 2017-07-29 15:41:27
+
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-28 22:05:09
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features=100, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=10, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-07-28 22:27:08
+=========testing============
+0.858049167328
+end of all opt 2017-07-28 22:47:09
+
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-29 15:49:34
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features=500, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=10, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-07-29 17:44:59
+=========testing============
+0.847475548506
+end of all opt 2017-07-29 18:08:26
+
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-29 18:48:41
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features=50, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=10, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-07-29 19:00:29
+=========testing============
+0.861485593444
+end of all opt 2017-07-29 19:29:37
+
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-29 20:09:13
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features=20, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=10, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-07-29 20:15:19
+=========testing============
+0.861221252974
+end of all opt 2017-07-29 20:41:56
+
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-29 21:49:29
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features=50, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=20, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-07-29 22:00:50
+=========testing============
+0.858313507798
+end of all opt 2017-07-29 22:16:58
+
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-29 22:41:10
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features=50, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=5,
+            min_samples_split=10, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-07-29 22:52:15
+=========testing============
+0.856991805445
+end of all opt 2017-07-29 23:16:21
+
+=========data size==========
+num of the features : 8192
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-07-30 11:47:15
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features=30, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=10, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-07-30 11:55:12
+=========testing============
+0.856727464975
+end of all opt 2017-07-30 12:25:04
+

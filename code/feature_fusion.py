@@ -23,9 +23,9 @@ from cascadeforest import CascadeForest
 logging.basicConfig(filename='feature_fusion_log.txt',level=logging.INFO)
 logging.info(time())
 
-f_train_data = open('data/data_path_train01.txt')
+f_train_data = open('data/data32_path_train01.txt')
 f_train32_data = open('data/data32_path_train01.txt')
-f_test_data = open('data/data_path_test01.txt')
+f_test_data = open('data/data32_path_test01.txt')
 
 #feature_name = '/vf_4clips.fc6-all'
 #feature_name = '/c3d_l2_norm.fc6'

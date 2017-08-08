@@ -15,8 +15,8 @@ from sklearn.model_selection import train_test_split
 from multigrainedscaner import MultiGrainedScaner
 from cascadeforest import CascadeForest
 
-f_train_data = open('data/data_path_train01.txt')
-f_test_data = open('data/data_path_test01.txt')
+f_train_data = open('data/data32_path_train01.txt')
+f_test_data = open('data/data32_path_test01.txt')
 
 #feature_name = '/vf_4clips.fc6-all'
 feature_name = '/c3d_l2_norm.fc6'
