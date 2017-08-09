@@ -106,6 +106,11 @@ feature importance : [ 0.000355    0.00012739  0.00012273 ...,  0.00027956  0.00
   0.00017714]
 end of all opt 2017-07-16 22:54:54
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////funetune///////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
 fc6 finetune c=0.01
 =========data size==========
 train data size 9537
@@ -308,4 +313,25 @@ start at test 2017-07-30 11:55:12
 =========testing============
 0.856727464975
 end of all opt 2017-07-30 12:25:04
+
+
+-->>>>>funetune on 16<<<<<-----s
+=========data size==========
+num of the features : 4096
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-08-08 22:10:23
+=========training===========
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='entropy',
+            max_depth=None, max_features=50, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=10, min_weight_fraction_leaf=0.0,
+            n_estimators=3000, n_jobs=-1, oob_score=True, random_state=1,
+            verbose=0, warm_start=False)
+start at test 2017-08-08 23:09:45
+=========testing============
+0.848797250859
+end of all opt 2017-08-08 23:40:59
 
