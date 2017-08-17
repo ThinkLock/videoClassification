@@ -164,10 +164,38 @@ def read_16and32_avg_feature(data_path, label_path, data32_path, label32_path):
     return all_data, all_label
 
 
+def read_fc_max_feature(data_path, label_path):
+    train_label = np.loadtxt(label_path)
+    all_data = []
+    f_open = open(data_path)
+    for index, line in enumerate(f_open.readlines()):
+        file_list = os.listdir(line.strip())
+        one_video_ft = []
+        print line.strip()
+        for fc in file_list:
+            if os.path.splitext(fc)[1] == '.fc6-1':
+                fc_path = line.strip() + "/" + fc
+                print fc_path
+                with open(fc_path, mode='rb') as fid:
+                    file_content = fid.read()
+                s = unpack("iiiii", file_content[:20])
+                m = s[0] * s[1] * s[2] * s[3] * s[4]
+                data = []
+                for i in range(0, m):
+                    start = 20 + (i * 4)
+                    d = unpack("f", file_content[start:start + 4])
+                    data.append(d[0])
+                one_video_ft.append(data)
+        one_video_ft = np.mean(one_video_ft, axis=0)
+        all_data.append(one_video_ft)
+    return all_data, train_label
+
+
+
 def train_model(train_x, train_y):
     c = 0.01  # SVM regularization parameter
     svc = svm.SVC(kernel='linear', C=c).fit(train_x, train_y)
-    joblib.dump(svc, 'svm_fc_16_concat_32ft16.pkl')
+    # joblib.dump(svc, 'svm_fc_16_concat_32ft16.pkl')
     return svc
 
 
@@ -229,12 +257,20 @@ def vote_for_model(model,data_path,label_path):
     return all_pre,test_label
 
 
+def get_test_pro(model, test_x, test_y):
+    for index, x in enumerate(test_x):
+        prb = model.predict_proba(x)
+        print prb
+        pre_y = model.predict(x)
+        print pre_y
+
+
 if __name__ == '__main__':
     # print("start at read {}".format(get_local_time()))
-    # train_x, train_y = read_fc_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt')
-    # test_x, test_y = read_fc_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt')
-    train_x, train_y = read_16and32_avg_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt', '../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
-    test_x, test_y = read_16and32_avg_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt', '../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
+    train_x, train_y = read_fc_max_feature('../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
+    test_x, test_y = read_fc_max_feature('../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
+    # train_x, train_y = read_16and32_avg_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt', '../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
+    # test_x, test_y = read_16and32_avg_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt', '../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
     print("=========data size==========")
     print("num of the features : {}".format(len(train_x[0])))
     print("train data size {}".format(len(train_x)))
@@ -243,11 +279,12 @@ if __name__ == '__main__':
     print("test label size {}".format(len(test_y)))
     print("start at train {}".format(get_local_time()))
     print("=========training===========")
-    mod = train_random_forest(train_x, train_y)
+    mod = train_model(train_x, train_y)
     print("start at test {}".format(get_local_time()))
     print("=========testing============")
     # all_pre, test_label = vote_for_model(model,'../data/spatial/data16_path_test01.txt', '../data/test_label01.txt')
     print mod.score(test_x, test_y)
+    # get_test_pro(mod,test_x,test_y)
     print("end of all opt {}".format(get_local_time()))
     # #
     # model = joblib.load('svm_fc_16_avg.pkl')

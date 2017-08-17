@@ -335,3 +335,61 @@ start at test 2017-08-08 23:09:45
 0.848797250859
 end of all opt 2017-08-08 23:40:59
 
+16 frame mean
+=========data size==========
+num of the features : 4096
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-08-13 22:08:00
+=========training===========
+start at test 2017-08-13 22:10:43
+=========testing============
+0.85910652921
+end of all opt 2017-08-13 22:12:13
+
+16 frame max
+=========data size==========
+num of the features : 4096
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-08-14 20:16:59
+=========training===========
+start at test 2017-08-14 20:20:02
+=========testing============
+0.873909595559
+end of all opt 2017-08-14 20:21:42
+
+
+32 finetune on 16 max
+=========data size==========
+num of the features : 4096
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-08-14 22:42:25
+=========training===========
+start at test 2017-08-14 22:46:09
+=========testing============
+0.810203542162
+end of all opt 2017-08-14 22:48:02
+
+32 finetune on 16 mean
+=========data size==========
+num of the features : 4096
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-08-17 21:18:33
+=========training===========
+start at test 2017-08-17 21:21:51
+=========testing============
+0.793285752049
+end of all opt 2017-08-17 21:23:32
+
+

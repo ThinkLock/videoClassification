@@ -32,7 +32,7 @@ def calc_accuracy(pre, y):
 
 
 def read_all_feature(path):
-    all_data = []
+    vcmpf_data = []
     for index, line in enumerate(path.readlines()):
         file_list = os.listdir(line.strip())
         conv_data = []
@@ -47,32 +47,60 @@ def read_all_feature(path):
                 # print data.shape
                 data = [v for v in data]
                 # print(len(data), len(data[0]))
-                conv_data.append(data)
+                conv_data.extend(data)
         # print(len(conv_data[0][0]), type(conv_data))
-        conv_data = np.amax(conv_data, axis=0)
-        # print(conv_data.shape)
-        # if line.strip() == '/home/zsl/dataset/c3d-withucf101/TableTennisShot/v_TableTennisShot_g16_c07':
-        #     print(conv_data)
-        # print(len(conv_data), len(conv_data[0]))
-        conv_data = conv_data.reshape(len(conv_data) * len(conv_data[0]))
-        # print(conv_data)
-        all_data.append(conv_data)
-    # print(len(data))
-    return all_data
+        conv_data = np.array(conv_data)
+        print(conv_data.shape)
+        indexandchannels = get_the_channel_dic(conv_data)
+        print(indexandchannels)
+        data = get_vcmpf_feature(conv_data, indexandchannels)
+        print(len(data))
+        vcmpf_data.append(data)
+    return vcmpf_data
+
+
+def get_the_channel_dic(conv_data):
+    # a = conv_data.max(axis=1)
+    b = conv_data.argmax(axis=1)
+    indexandch = {}
+    for i in range(0, conv_data.shape[0]):
+        # print("--->{}".format(i))
+        # print(b[i])
+        if indexandch.get(b[i], 'null') == 'null':
+            indexandch[b[i]] = []
+            indexandch[b[i]].append(i)
+        else:
+            indexandch[b[i]].append(i)
+    # print(indexandch)
+    return indexandch
+
+
+def get_vcmpf_feature(origin_data,indexandchannels):
+    vcmpf = []
+    for i in range(0, 512):
+        # print(i)
+        xj_index = indexandchannels.get(i)
+        vi = np.zeros(512, dtype='double')
+        if not xj_index is None:
+            # print(xj_index)
+            xj = np.take(origin_data, xj_index, axis=0)
+            xj = np.array(xj)
+            max_for_xj = xj.max(axis=0)
+            # print(xj.shape)
+            # print(len(max_for_xj))
+            for j in range(0, 512):
+                vi[j] = max_for_xj[j]
+        # print(vi)
+        vcmpf.extend(vi)
+    # print(len(vcmpf))
+    return vcmpf
 
 
 def train_svm(X, y):
-    c = 0.01  # SVM regularization parameter
+    c = 100  # SVM regularization parameter
     svc = svm.SVC(kernel='linear', C=c).fit(X, y)
     return svc
 
-
-def train_random_forest(train_x, train_y):
-    clf = RandomForestClassifier(n_estimators=3000, oob_score=True, n_jobs=-1, random_state=1,
-                                 max_features=50, min_samples_split=10, min_samples_leaf=1)
-    s = clf.fit(train_x, train_y)
-    print(s)
-    return s
 
 if __name__ == '__main__':
     train_data = read_all_feature(f_train_data)
