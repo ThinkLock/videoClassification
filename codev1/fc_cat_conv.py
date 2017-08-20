@@ -103,8 +103,8 @@ def test_for_prb_fusion(modelconv, modelfc, testconv, testfc):
     for index, x in enumerate(testconv):
         prb_conv = modelconv.predict_proba(x)
         prb_fc = modelfc.predict_proba(testfc[index])
-        prb_conv = [v * 0.8 for v in prb_conv[0]]
-        prb_fc = [v * 0.2 for v in prb_fc[0]]
+        prb_conv = [v * 0.9 for v in prb_conv[0]]
+        prb_fc = [v * 0.1 for v in prb_fc[0]]
         prb = [a + b for a,b in zip(prb_conv, prb_fc)]
         print(prb)
         prb_y = np.argmax(prb)
