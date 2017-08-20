@@ -29,6 +29,7 @@ from sklearn.cluster import KMeans
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier, VotingClassifier
 from sklearn.externals import joblib
 from sklearn.grid_search import GridSearchCV
+from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
@@ -175,7 +176,7 @@ def read_fc_max_feature(data_path, label_path):
         for fc in file_list:
             if os.path.splitext(fc)[1] == '.fc6-1':
                 fc_path = line.strip() + "/" + fc
-                print fc_path
+                # print fc_path
                 with open(fc_path, mode='rb') as fid:
                     file_content = fid.read()
                 s = unpack("iiiii", file_content[:20])
@@ -186,7 +187,7 @@ def read_fc_max_feature(data_path, label_path):
                     d = unpack("f", file_content[start:start + 4])
                     data.append(d[0])
                 one_video_ft.append(data)
-        one_video_ft = np.mean(one_video_ft, axis=0)
+        one_video_ft = np.max(one_video_ft, axis=0)
         all_data.append(one_video_ft)
     return all_data, train_label
 
@@ -257,18 +258,33 @@ def vote_for_model(model,data_path,label_path):
     return all_pre,test_label
 
 
+def train_navie_byais(train_x, train_y):
+    gnb = GaussianNB().fit(train_x, train_y)
+    return gnb
+
+
 def get_test_pro(model, test_x, test_y):
+    length = len(test_y)
+    count = 0
     for index, x in enumerate(test_x):
-        prb = model.predict_proba(x)
+        prb = model.predict(x)
         print prb
-        pre_y = model.predict(x)
-        print pre_y
+        print test_y[index]
+        if prb == test_y[index]:
+            count = count + 1
+    print count
+    print length
+    print count/length
 
 
 if __name__ == '__main__':
     # print("start at read {}".format(get_local_time()))
-    train_x, train_y = read_fc_max_feature('../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
-    test_x, test_y = read_fc_max_feature('../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
+    # train32_x, train_y = read_fc_max_feature('../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
+    # test32_x, test_y = read_fc_max_feature('../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
+    train_x, train_y = read_fc_max_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt')
+    test_x, test_y = read_fc_max_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt')
+    # train_x = np.concatenate((train_x, train32_x), axis=1)
+    # test_x = np.concatenate((test_x, test32_x), axis=1)
     # train_x, train_y = read_16and32_avg_feature('../data/spatial/data16_path_train01.txt', '../data/train_label01.txt', '../data/spatial/data32on16_path_train01.txt', '../data/train_label01.txt')
     # test_x, test_y = read_16and32_avg_feature('../data/spatial/data16_path_test01.txt', '../data/test_label01.txt', '../data/spatial/data32on16_path_test01.txt', '../data/test_label01.txt')
     print("=========data size==========")
@@ -279,11 +295,12 @@ if __name__ == '__main__':
     print("test label size {}".format(len(test_y)))
     print("start at train {}".format(get_local_time()))
     print("=========training===========")
-    mod = train_model(train_x, train_y)
+    mod = train_navie_byais(train_x, train_y)
     print("start at test {}".format(get_local_time()))
     print("=========testing============")
     # all_pre, test_label = vote_for_model(model,'../data/spatial/data16_path_test01.txt', '../data/test_label01.txt')
-    print mod.score(test_x, test_y)
+    # print mod.score(test_x, test_y)
+    get_test_pro(mod, test_x, test_y)
     # get_test_pro(mod,test_x,test_y)
     print("end of all opt {}".format(get_local_time()))
     # #

@@ -2,7 +2,7 @@ from __future__ import print_function, division
 import numpy as np
 import os
 import re
-
+import warnings
 import time
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
@@ -17,6 +17,8 @@ test_label = []
 
 train_label = np.loadtxt('../data/train_label01.txt')
 test_label = np.loadtxt('../data/test_label01.txt')
+
+warnings.filterwarnings('ignore')
 
 
 def get_local_time():
@@ -67,6 +69,16 @@ def train_svm(X, y):
     return svc
 
 
+def get_test_pro(model, test_x, test_y):
+    for index, x in enumerate(test_x):
+        prb = model.predict_proba(x)
+        prb = prb.argmax(axis=1)
+        print(prb)
+        pre_y = model.predict(x)[0]
+        print(pre_y)
+        print(test_y[index])
+
+
 def train_random_forest(train_x, train_y):
     clf = RandomForestClassifier(n_estimators=3000, oob_score=True, n_jobs=-1, random_state=1,
                                  max_features=50, min_samples_split=10, min_samples_leaf=1)
@@ -89,6 +101,7 @@ if __name__ == '__main__':
     print("start at test {}".format(get_local_time()))
     print("=========testing============")
     print(mod.score(test_data, test_label))
+    # get_test_pro(mod, test_data, test_label)
     print("end of all opt {}".format(get_local_time()))
 
 

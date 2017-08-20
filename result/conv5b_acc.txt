@@ -25,7 +25,12 @@ start at test 2017-08-13 21:31:05
 0.833729844039
 end of all opt 2017-08-13 21:41:50
 
-
+c=100 vcmpf for conv5b
+start at test 2017-08-18 18:22:58
+=========testing============
+0.81919111816
+why
+end of all opt 2017-08-18 21:47:51
 
 
 ////////////////////////////////////////////////////////////////////
@@ -84,3 +89,77 @@ start at test 2017-08-13 20:45:14
 =========testing============
 0.795136135342
 end of all opt 2017-08-13 20:45:58
+
+
+
+////////////////////////////////////////
+conv fc cat conv5b is max fc is mean
+=========data size==========
+num of the features : 29184
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-08-19 15:21:23
+=========training===========
+start at test 2017-08-19 15:39:23
+=========testing============
+0.84403912239
+end of all opt 2017-08-19 15:51:16
+
+conv fc cat conv5b is max fc is max
+=========data size==========
+num of the features : 29184
+train data size 9537
+train label size 9537
+test data size 3783
+test label size 3783
+start at train 2017-08-19 16:30:18
+=========training===========
+start at test 2017-08-19 16:47:34
+=========testing============
+0.852233676976
+end of all opt 2017-08-19 16:58:41
+
+svm fusion for  fc6 and conv5b max
+0.861749933915
+
+////////////////////////////////////////
+svm fusion for fc6 0.7 and conv5b 0.3
+3307
+3783
+0.87417393603
+
+fc6 0.9 conv5b 0.1
+3276
+3783
+0.865979381443
+fc6 0.8 conv5b 0.2
+3290
+3783
+0.869680148031
+
+fc 0.4 conv5b 0.4
+3302
+3783
+0.872852233677
+
+fc 0.5 conv5b 0.5
+3307
+3783
+0.87417393603
+
+fc 0.4 conv5b 0.6
+3282
+3783
+0.867565424266
+
+fc 0.3 conv5b 0.7
+3238
+3783
+0.855934443563
+
+
+
+
+
